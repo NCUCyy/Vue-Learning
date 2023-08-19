@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8" />
+	<title>事件修饰符</title>
+	<!-- 引入Vue -->
+	<script type="text/javascript" src="../js/vue.js"></script>
+	<style>
+		* {
+			margin-top: 20px;
+		}
+
+		.demo1 {
+			height: 50px;
+			background-color: skyblue;
+		}
+
+		.box1 {
+			padding: 5px;
+			background-color: skyblue;
+		}
+
+		.box2 {
+			padding: 5px;
+			background-color: orange;
+		}
+
+		.list {
+			width: 200px;
+			height: 200px;
+			background-color: peru;
+			overflow: auto;
+		}
+
+		li {
+			height: 100px;
+		}
+	</style>
+</head>
+
+<body>
+	<!-- 		
+				标签的点击事件触发的两种原因：
+						1.可能是本身被点击
+						2.也有可能由子标签的点击事件冒泡上来触发（此时当前标签的点击事件的target不是当前标签，而是真正被点击的子标签）
+				
+				Vue中的事件修饰符：
+						1.prevent：阻止默认事件（常用）；
+						2.stop：阻止事件冒泡（常用）；
+						3.once：事件只触发一次（常用）；
+						4.capture：使用事件的捕获模式；
+						5.self：只有event.target是当前操作的元素时才触发事件；(也可以实现阻止冒泡)
+						6.passive：事件的默认行为立即执行，无需等待事件回调执行完毕；(移动端用的比较多)
+						- 举例：滚动滚轮，触发滚动事件，执行回调函数demo()，demo()函数执行完之后【可能要好久】，才会执行滚轮的默认行为(往上/下滚动)
+						- 加了passive之后，事件的默认行为会【立即执行】，无需等待回调函数执行完毕
+						- 使用该修饰符可以提高(滚动)性能————特指@wheel事件的滚动
+						- @scroll的滚动，不需要额外设置.passive
+		-->
+	<!-- 准备好一个容器-->
+	<div id="root">
+		<h2>欢迎来到{{name}}学习</h2>
+		<!-- 阻止默认事件（常用） -->
+		<a href="http://www.atguigu.com" @click.prevent="showInfo">点我提示信息</a>
+
+		<!-- 阻止事件冒泡（常用） -->
+		<div class="demo1" @click="showInfo">
+			<button @click.stop="showInfo">点我提示信息</button>
+			<!-- 修饰符可以连续写 -->
+			<!-- <a href="http://www.atguigu.com" @click.prevent.stop="showInfo">点我提示信息</a> -->
+		</div>
+
+		<!-- 事件只触发一次（常用） -->
+		<button @click.once="showInfo">点我提示信息</button>
+
+		<!-- 使用事件的捕获模式 -->
+		<div class="box1" @click.capture="showMsg(1)">
+			div1
+			<div class="box2" @click="showMsg(2)">
+				div2
+			</div>
+		</div>
+
+		<!-- 只有event.target是当前操作的元素时才触发事件； -->
+		<div class="demo1" @click.self="showInfo">
+			<button @click="showInfo">点我提示信息</button>
+		</div>
+
+		<!-- 事件的默认行为立即执行，无需等待事件回调执行完毕； -->
+		<ul @wheel.passive="demo" class="list">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+
+	</div>
+</body>
+
+<script type="text/javascript">
+	Vue.config.productionTip = false //阻止 vue 在启动时生成生产提示。
+
+	new Vue({
+		el: '#root',
+		data: {
+			name: '尚硅谷'
+		},
+		methods: {
+			showInfo(e) {
+				alert('同学你好！')
+				// console.log(e.target)
+			},
+			showMsg(msg) {
+				console.log(msg)
+			},
+			demo() {
+				for (let i = 0; i < 100000; i++) {
+					console.log('#')
+				}
+				console.log('累坏了')
+			},
+		}
+	})
+</script>
+
+</html>

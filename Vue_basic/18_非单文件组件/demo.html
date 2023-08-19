@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type='text/javascript' src="../js/vue.js"></script>
+</head>
+
+<body>
+    <div id="root">
+        <!-- 3、使用 -->
+        <school></school>
+    </div>
+</body>
+<script type='text/javascript'>
+    // 1、创建
+    const school = Vue.extend({
+        template:`
+            <div>
+                <span>姓名：{{name}}</span>
+                <span>年龄：{{age}}</span>
+            </div>
+        `,
+        data() {
+            return {
+                name: "cyy",
+                age: "22"
+            }
+        }
+    })
+    new Vue({
+        el: '#root',
+
+        components: {
+            // 2、注册
+            school:school
+        }
+    })
+</script>
+
+</html>
