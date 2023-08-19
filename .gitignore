@@ -6,3 +6,5 @@ node_modules/
 
 # 忽略所有目录下的图片文件夹
 img/
+
+.DS_Store
