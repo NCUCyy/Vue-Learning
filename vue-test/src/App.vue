@@ -2,9 +2,9 @@
   <div id="root">
     <div class="todo-container">
       <div class="todo-wrap">
-        <MyHeader :addTodo="addTodo"></MyHeader>
-        <MyList :todos="todos" :checkTodo="checkTodo"></MyList>
-        <MyFooter></MyFooter>
+        <MyHeader :addTodo="addTodo" />
+        <MyList :todos="todos" :checkTodo="checkTodo" :deleteTodo="deleteTodo" />
+        <MyFooter :todos="todos" :checkALlTodo="checkALlTodo"/>
       </div>
     </div>
   </div>
@@ -39,9 +39,22 @@ export default {
     // 勾选或取消勾选一个todo
     checkTodo(id) {
       this.todos.forEach((todo) => {
-        if (todo.id === id) todo.done = !todo.done
-
+        if (todo.id === id) {
+          todo.done = !todo.done
+          return
+        }
       })
+    },
+    // 删除一个todo
+    deleteTodo(id) {
+      // 使用过滤函数，删除后的数组，覆盖原数组
+      this.todos = this.todos.filter(todo => todo.id !== id)
+    },
+    // 全选 or 全不选
+    checkALlTodo(done) {
+      this.todos.forEach(todo => {
+        todo.done = done
+      });
     }
   }
 }
