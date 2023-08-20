@@ -1,7 +1,8 @@
 <template>
+    <!-- 注意：直接用total是否为0，控制是否显示整个组件 -->
     <div class="todo-footer" v-show="total">
         <label>
-            <input type="checkbox" :checked="isAll" @click="checkAll" />
+            <input type="checkbox" v-model="isAll"/>
         </label>
         <span>
             <span>已完成{{ doneTotal }}</span> / 全部{{ total }}
@@ -31,20 +32,25 @@ export default {
             return this.todos.reduce((pre, todo) => pre + (todo.done ? 1 : 0), 0)
         },
         // 判断todo是否全被选中了
-        isAll() {
-            return (this.doneTotal === this.todos.length) && this.total > 0
-        },
+        isAll: {
+            get() {
+                return (this.doneTotal === this.total) && this.total > 0
+            },
+            set(value) {
+                this.checkAllTodo(value)
+            }
+        }
     },
     methods: {
         // 删除所有todo
         deleteAll() {
         },
-        // 选中 or 不选所有todo
-        checkAll(e) {
-            this.checkALlTodo(e.target.checked)
-        }
+        // // 选中 or 不选所有todo
+        // checkAll(e) {
+        //     this.checkAllTodo(e.target.checked)
+        // }
     },
-    props: ["todos", "checkALlTodo"]
+    props: ["todos", "checkAllTodo"]
 }
 </script>
 
