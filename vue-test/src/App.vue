@@ -26,7 +26,7 @@ export default {
     return {
       // 初始化列表（从localStorage中读取）
       // 当没有元素时,getItem返回null，再todos.length时会报错；所以要保证这是个数组不为null
-      todos: JSON.parse(localStorage.getItem) || []
+      todos: JSON.parse(localStorage.getItem("todos")) || []
     }
   },
   methods: {
@@ -63,7 +63,7 @@ export default {
     todos: {
       // 开启深度监视（监视到数组中每个todo对象的属性修改）
       deep: true,
-      handle(value) {
+      handler(value) {
         // 当数组发生改变时，把新数组value覆盖localStorage中的原数组
         localStorage.setItem("todos", JSON.stringify(value))
       }
