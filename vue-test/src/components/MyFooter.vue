@@ -2,7 +2,7 @@
     <!-- 注意：直接用total是否为0，控制是否显示整个组件 -->
     <div class="todo-footer" v-show="total">
         <label>
-            <input type="checkbox" v-model="isAll"/>
+            <input type="checkbox" v-model="isAll" />
         </label>
         <span>
             <span>已完成{{ doneTotal }}</span> / 全部{{ total }}
@@ -44,13 +44,15 @@ export default {
     methods: {
         // 删除所有todo
         deleteAll() {
+            if (confirm("确认删除所有选中的Todo项?"))
+                this.clearAllTodo()
         },
         // // 选中 or 不选所有todo
         // checkAll(e) {
         //     this.checkAllTodo(e.target.checked)
         // }
     },
-    props: ["todos", "checkAllTodo"]
+    props: ["todos", "checkAllTodo", "clearAllTodo"]
 }
 </script>
 

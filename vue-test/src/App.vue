@@ -4,7 +4,7 @@
       <div class="todo-wrap">
         <MyHeader :addTodo="addTodo" />
         <MyList :todos="todos" :checkTodo="checkTodo" :deleteTodo="deleteTodo" />
-        <MyFooter :todos="todos" :checkAllTodo="checkAllTodo"/>
+        <MyFooter :todos="todos" :checkAllTodo="checkAllTodo" :clearAllTodo="clearAllTodo" />
       </div>
     </div>
   </div>
@@ -55,6 +55,10 @@ export default {
       this.todos.forEach(todo => {
         todo.done = done
       });
+    },
+    // 删除所有√的框框
+    clearAllTodo() {
+      this.todos = this.todos.filter(todo => !todo.done)
     }
   }
 }
