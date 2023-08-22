@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import pubsub from 'pubsub-js'
 import MyHeader from './components/MyHeader.vue';
 import MyList from './components/MyList.vue';
 import MyFooter from './components/MyFooter.vue';
@@ -46,7 +47,8 @@ export default {
       })
     },
     // 删除一个todo
-    deleteTodo(id) {
+    deleteTodo(_,id) {
+      // 需要一个_下划线作为占位符（因为第一个参数是消息名）
       // 使用过滤函数，删除后的数组，覆盖原数组
       this.todos = this.todos.filter(todo => todo.id !== id)
     },
@@ -75,13 +77,16 @@ export default {
     // 挂载后，绑定事件
     // 注意：this不要忘记写！！！！！！
     this.$bus.$on("checkTodo", this.checkTodo)
-    this.$bus.$on("deleteTodo", this.deleteTodo)
-
+    // 全局总线【写法】
+    // this.$bus.$on("deleteTodo", this.deleteTodo)
+    // 消息订阅预发布【写法】
+    this.pubId = pubsub.subscribe('deleteTodo', this.deleteTodo)
   },
   beforeDestroy() {
     // 销毁后，解绑事件
     this.$bus.$off("checkTodo")
-    this.$bus.$off("deleteTodo")
+    // this.$bus.$off("deleteTodo")
+    pubsub.unsubscribe(this.pubId)
   }
 }
 </script>

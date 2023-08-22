@@ -9,6 +9,7 @@
 </template>
 
 <script>
+import pubsub from 'pubsub-js'
 export default {
     name: "MyItem",
     props: ["todo"],
@@ -17,13 +18,17 @@ export default {
         handleCheck() {
             // 获取id的方式1
             // 触发checkTodo的事件
-            this.$bus.$emit("checkTodo",this.todo.id)
+            this.$bus.$emit("checkTodo", this.todo.id)
         },
         // 删除
         handleDelete() {
             if (confirm("确认是否删除" + this.todo.title))
-                // 触发deleteTodo的事件
-                this.$bus.$emit("deleteTodo",this.todo.id)
+                // 法1：父组件传过来一个函数
+                // this.deleteTodo(this.todo.id)
+                // 法2：全局总线（触发deleteTodo的事件）
+                // this.$bus.$emit("deleteTodo",this.todo.id)
+                // 法3：消息订阅与发布
+                pubsub.publish('deleteTodo', this.todo.id)
         }
     },
 }
