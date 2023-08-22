@@ -93,7 +93,7 @@ export default {
     // 销毁后，解绑事件
     this.$bus.$off("checkTodo")
     pubsub.unsubscribe(this.pubId)
-    this.$bus.$off("finishEdit")
+    this.$bus.$off("updateTodo")
   }
 }
 </script>
