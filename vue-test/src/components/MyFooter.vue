@@ -37,7 +37,10 @@ export default {
                 return (this.doneTotal === this.total) && this.total > 0
             },
             set(value) {
-                this.checkAllTodo(value)
+                // 传函数
+                // this.checkAllTodo(value)
+                // 触发自定义事件
+                this.$emit('checkAllTodo',value)
             }
         }
     },
@@ -45,7 +48,10 @@ export default {
         // 删除所有todo
         deleteAll() {
             if (confirm("确认删除所有选中的Todo项?"))
-                this.clearAllTodo()
+            // 传函数
+            // this.clearAllTodo()
+            // 触发自定义事件
+            this.$emit("clearAllTodo")
         },
         // // 选中 or 不选所有todo
         // checkAll(e) {
