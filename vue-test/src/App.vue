@@ -4,7 +4,7 @@
       <div class="todo-wrap">
         <!-- 改为自定义事件：addTodo -->
         <MyHeader @addTodo="addTodo" />
-        <MyList :todos="todos" :checkTodo="checkTodo" :deleteTodo="deleteTodo" />
+        <MyList :todos="todos" />
         <!-- 改为自定义事件：checkAllTodo、clearAllTodo -->
         <MyFooter :todos="todos" @checkAllTodo="checkAllTodo" @clearAllTodo="clearAllTodo" />
       </div>
@@ -59,7 +59,7 @@ export default {
     // 删除所有√的框框
     clearAllTodo() {
       this.todos = this.todos.filter(todo => !todo.done)
-    }
+    },
   },
   watch: {
     todos: {
@@ -70,6 +70,18 @@ export default {
         localStorage.setItem("todos", JSON.stringify(value))
       }
     }
+  },
+  mounted() {
+    // 挂载后，绑定事件
+    // 注意：this不要忘记写！！！！！！
+    this.$bus.$on("checkTodo", this.checkTodo)
+    this.$bus.$on("deleteTodo", this.deleteTodo)
+
+  },
+  beforeDestroy() {
+    // 销毁后，解绑事件
+    this.$bus.$off("checkTodo")
+    this.$bus.$off("deleteTodo")
   }
 }
 </script>

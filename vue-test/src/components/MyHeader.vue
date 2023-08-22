@@ -29,7 +29,6 @@ export default {
             // this.addTodo(todoObj)
             // 触发自定义事件
             this.$emit("addTodo",todoObj)
-            this.addTodo(todoObj)
             // 4、添加完后，清空输入框
             this.item = ''
         }

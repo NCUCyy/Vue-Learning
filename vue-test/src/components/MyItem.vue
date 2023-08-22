@@ -11,19 +11,19 @@
 <script>
 export default {
     name: "MyItem",
-    props: ["todo", "checkTodo", "deleteTodo"],
+    props: ["todo"],
     methods: {
         // 勾选 or 取消勾选
         handleCheck() {
             // 获取id的方式1
-            // 通知App组件将对应id的todo的done值取反
-            this.checkTodo(this.todo.id)
+            // 触发checkTodo的事件
+            this.$bus.$emit("checkTodo",this.todo.id)
         },
         // 删除
-        handleDelete(id) {
+        handleDelete() {
             if (confirm("确认是否删除" + this.todo.title))
-                // 获取id的方式2
-                this.deleteTodo(id)
+                // 触发deleteTodo的事件
+                this.$bus.$emit("deleteTodo",this.todo.id)
         }
     },
 }
