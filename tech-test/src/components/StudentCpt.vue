@@ -7,7 +7,7 @@
 
 <script>
 export default {
-	name: 'Student',
+	name: 'StudentCpt',
 	data() {
 		return {
 			name: '张三',
@@ -20,15 +20,11 @@ export default {
 		}
 	},
 	mounted() {
-		this.$bus.$on("getSchoolName", getSchoolName)
+		this.$bus.$on("getSchoolName", this.getSchoolName)
 	},
+	beforeDestroy(){
+		this.$bus.$off("getSchoolName")
+	}
 }
 </script>
 
-<style lang="less" scoped>
-.student {
-	background-color: pink;
-	padding: 5px;
-	margin-top: 30px;
-}
-</style>

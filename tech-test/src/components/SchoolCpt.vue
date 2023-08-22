@@ -2,13 +2,13 @@
 	<div class="school">
 		<h2>学校名称：{{ name }}</h2>
 		<h2>学校地址：{{ address }}</h2>
-		<button @click="sendSchoolName"></button>
+		<button @click="sendSchoolName">点我给Student传递SchoolName</button>
 	</div>
 </template>
 
 <script>
 export default {
-	name: 'School',
+	name: 'SchoolCpt',
 	data() {
 		return {
 			name: '尚硅谷',
@@ -22,10 +22,3 @@ export default {
 	},
 }
 </script>
-
-<style scoped>
-.school {
-	background-color: skyblue;
-	padding: 5px;
-}
-</style>
