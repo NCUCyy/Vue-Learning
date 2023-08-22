@@ -57,6 +57,8 @@ export default {
         // checkAll(e) {
         //     this.checkAllTodo(e.target.checked)
         // }
+        //
+        //
     },
     props: ["todos", "checkAllTodo", "clearAllTodo"]
 }
