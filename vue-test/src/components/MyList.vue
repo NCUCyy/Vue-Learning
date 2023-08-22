@@ -10,7 +10,6 @@ export default {
     name: "MyList",
     components: { MyItem },
     props: ["todos"]
-
 }
 </script>
 

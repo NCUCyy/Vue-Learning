@@ -47,7 +47,7 @@ export default {
       })
     },
     // 删除一个todo
-    deleteTodo(_,id) {
+    deleteTodo(_, id) {
       // 需要一个_下划线作为占位符（因为第一个参数是消息名）
       // 使用过滤函数，删除后的数组，覆盖原数组
       this.todos = this.todos.filter(todo => todo.id !== id)
@@ -62,6 +62,15 @@ export default {
     clearAllTodo() {
       this.todos = this.todos.filter(todo => !todo.done)
     },
+    // 更新todo（title）
+    updateTodo(todoId, title) {
+      this.todos.forEach(todo => {
+        if (todo.id === todoId) {
+          todo.title = title
+          return
+        }
+      });
+    }
   },
   watch: {
     todos: {
@@ -75,18 +84,16 @@ export default {
   },
   mounted() {
     // 挂载后，绑定事件
-    // 注意：this不要忘记写！！！！！！
+    // 注意：函数前的this不要忘记写！！！！！！
     this.$bus.$on("checkTodo", this.checkTodo)
-    // 全局总线【写法】
-    // this.$bus.$on("deleteTodo", this.deleteTodo)
-    // 消息订阅预发布【写法】
     this.pubId = pubsub.subscribe('deleteTodo', this.deleteTodo)
+    this.$bus.$on("updateTodo", this.updateTodo)
   },
   beforeDestroy() {
     // 销毁后，解绑事件
     this.$bus.$off("checkTodo")
-    // this.$bus.$off("deleteTodo")
     pubsub.unsubscribe(this.pubId)
+    this.$bus.$off("finishEdit")
   }
 }
 </script>
@@ -114,6 +121,13 @@ body {
   color: #fff;
   background-color: #da4f49;
   border: 1px solid #bd362f;
+}
+
+.btn-edit {
+  color: #130505;
+  background-color: #caebf8;
+  border: 1px solid #bd362f;
+  margin-right: 5px;
 }
 
 .btn-danger:hover {
