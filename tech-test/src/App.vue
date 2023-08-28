@@ -1,36 +1,18 @@
 <template>
-  <div>
-    <button @click="getStudents">点我显示学生数据</button>
-    <button @click="getCars">点我显示汽车数据</button>
+  <div class="container">
+    <SearchCpt></SearchCpt>
+    <ListCpt></ListCpt>
   </div>
 </template>
 
 <script>
-import axios from "axios"
+import ListCpt from './components/ListCpt.vue'
+import SearchCpt from './components/SearchCpt.vue'
 
 export default {
   name: 'App',
-  methods: {
-    getStudents() {
-      axios.get('http://localhost:8080/students').then(
-        response => {
-          console.log("请求成功！", response.data)
-        },
-        error => {
-          console.log("请求失败！", error.message)
-        }
-      )
-    },
-    getCars() {
-      axios.get('http://localhost:8080/ap/cars').then(
-        response => {
-          console.log('请求成功！', response.data)
-        },
-        error => {
-          console.log('请求失败！', error.message)
-        }
-      )
-    }
+  components: {
+    ListCpt, SearchCpt
   }
 }
 </script>
