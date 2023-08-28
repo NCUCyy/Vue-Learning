@@ -1,11 +1,17 @@
 <template>
     <div class="row">
-        <div class="card" v-for="user in users" :key="user.login">
+        <div v-show="info.users" class="card" v-for="user in info.users" :key="user.login">
             <a :href="user.html_url" target="_blank">
                 <img :src="user.avatar_url" style='width: 100px' />
             </a>
             <p class="card-text">{{ user.login }}</p>
         </div>
+        <!-- 展示欢迎页面 -->
+        <h1 v-show="info.isFirst">Welcome to use!</h1>
+        <!-- 展示加载页面 -->
+        <h1 v-show="info.isLoading">Loading...</h1>
+        <!-- 展示错误信息 -->
+        <h1 v-show="info.errorMsg">{{ info.errorMsg }}</h1>
     </div>
 </template>
 
@@ -14,12 +20,19 @@ export default {
     name: "ListCpt",
     data() {
         return {
-            users: []
+            info: {
+                isFirst: true,
+                isLoading: false,
+                users: [],
+                errorMsg: '',
+            }
         }
     },
     mounted() {
-        this.$bus.$on("getUsers", users => {
-            this.users = users
+        this.$bus.$on("getData", dataObj => {
+            // es6语法
+            // 把dataObj中的属性值覆盖掉info中的属性值（info中有，而dataObj中没有的属性，保持不变）
+            this.info = { ...this.info, ...dataObj }
         })
     }
 }

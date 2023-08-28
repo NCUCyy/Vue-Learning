@@ -19,14 +19,14 @@ export default {
     },
     methods: {
         searchUsers() {
+            this.$bus.$emit("getData", { isFirst: false, isLoading: true, users: [], errorMsg: '' })
             // ES6模版字符串
             axios.get(`https://api.github.com/search/users?q=${this.keyword}`).then(
                 response => {
-                    console.log("请求成功！", response.data.items)
-                    this.$bus.$emit("getUsers", response.data.items)
+                    this.$bus.$emit("getData", { isLoading: false, users: response.data.items, errorMsg: '' })
                 },
                 error => {
-                    console.log("请求失败！", error.data)
+                    this.$bus.$emit("getData", { isLoading: false, users: [], errorMsg: error.message })
                 }
             )
         }
