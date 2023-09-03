@@ -1,18 +1,16 @@
 <template>
-  <div class="container">
-    <SearchCpt></SearchCpt>
-    <ListCpt></ListCpt>
+  <div>
+    <CountCpt />
   </div>
 </template>
 
 <script>
-import ListCpt from './components/ListCpt.vue'
-import SearchCpt from './components/SearchCpt.vue'
+import CountCpt from './components/CountCpt.vue';
 
 export default {
   name: 'App',
   components: {
-    ListCpt, SearchCpt
+    CountCpt
   }
 }
 </script>
