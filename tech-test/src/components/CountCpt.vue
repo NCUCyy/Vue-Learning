@@ -1,6 +1,8 @@
 <template>
   <div>
     <h1>当前求和为：{{ $store.state.sum }}</h1>
+    放大十倍后的和：{{ $store.getters.bigSum }}
+    我在{{ $store.state.school }}，学习我在{{ $store.state.subject }}
     <select v-model.number="n">
       <option value="1">1</option>
       <option value="2">2</option>
