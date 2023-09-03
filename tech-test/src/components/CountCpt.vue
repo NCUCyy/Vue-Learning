@@ -1,21 +1,22 @@
 <template>
   <div>
-    <h1>当前求和为：{{ $store.state.sum }}</h1>
-    放大十倍后的和：{{ $store.getters.bigSum }}
-    我在{{ $store.state.school }}，学习我在{{ $store.state.subject }}
-    <select v-model.number="n">
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-    </select>
-    <button @click="increment">+</button>
-    <button @click="decrement">-</button>
-    <button @click="incrementOdd">当前求和为奇数再加</button>
-    <button @click="incrementWait">等一等再加</button>
+    <h1>当前求和为：{{ sum }}</h1>
+    <h3>放大十倍后的和：{{ bigSum }}</h3>
+    <h3>我在{{ school }}，学习我在{{ subject }}</h3>
+      <select v-model.number="n">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>
+      <button @click="increment(n)">+</button>
+      <button @click="decrement(n)">-</button>
+      <button @click="incrementOdd(n)">当前求和为奇数再加</button>
+      <button @click="incrementWait(n)">等一等再加</button>
   </div>
 </template>
 
 <script>
+import { mapState, mapGetters, mapActions, mapMutations } from 'vuex'
 export default {
   name: 'CountCpt',
   data() {
@@ -23,23 +24,13 @@ export default {
       n: 1, //用户选择的数字
     }
   },
+  computed: {
+    ...mapState(['sum', 'school', 'subject']),
+    ...mapGetters(['bigSum'])
+  },
   methods: {
-    increment() {
-      // 直接调mutations中的函数，操作数据
-      this.$store.commit('ADD', this.n)
-    },
-    decrement() {
-      // 直接调mutations中的函数，操作数据
-      this.$store.commit('REDUCE', this.n)
-    },
-    incrementOdd() {
-      // 先调actions中的函数，完成某些业务逻辑；再调mutations中的函数，操作数据
-      this.$store.dispatch('addOdd', this.n)
-    },
-    incrementWait() {
-      // 先调actions中的函数，完成某些业务逻辑；再调mutations中的函数，操作数据
-      this.$store.dispatch('addWait', this.n)
-    },
+    ...mapActions({ incrementOdd: 'addOdd', incrementWait: 'addWait' }),
+    ...mapMutations({ increment: 'ADD', decrement: 'REDUCE' })
   },
 }
 </script>
