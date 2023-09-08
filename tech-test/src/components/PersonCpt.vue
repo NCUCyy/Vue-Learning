@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1>人员列表</h1>
-        <span style="color:red">人数为：{{personsSum}}</span>
+        <span style="color:red">人数为：{{ personsSum }}</span>
         <h3 style="color:red">Count组件求和为：{{ countSum }}</h3>
         <input type="text" placeholder="请输入名字" v-model="name">
         <button @click="addPerson({ id: id(), name })">添加</button>
@@ -26,9 +26,12 @@ export default {
     },
     computed: {
         // 对象写法
-        ...mapState({ persons: 'persons', countSum: 'sum' }),
+        // 1、person模块
+        ...mapState('personOptions', { persons: 'persons' }),
+        // 2、count模块
+        ...mapState('countOptions', { countSum: 'sum' }),
         // 数组写法
-        ...mapGetters(['personsSum'])
+        ...mapGetters('personOptions', ['personsSum'])
     },
     methods: {
         id() {
@@ -36,7 +39,7 @@ export default {
             return nanoid()
         },
         // 对象写法
-        ...mapMutations({ addPerson: 'ADD_PERSON' })
+        ...mapMutations('personOptions', { addPerson: 'ADD_PERSON' })
     }
 }
 </script>
