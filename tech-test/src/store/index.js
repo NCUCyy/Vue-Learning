@@ -26,7 +26,7 @@ const actions = {
         setTimeout(() => {
             context.commit('ADD', value)
         }, 500)
-    }
+    },
 }
 // mutations——用于操作数据（state）
 const mutations = {
@@ -38,17 +38,26 @@ const mutations = {
         // 真正修改数据
         state.sum -= value
     },
+    ADD_PERSON(state, value) {
+        state.persons.push({ id: value.id, name: value.name })
+    }
 }
 // state——用于存储数据
 const state = {
     sum: 0,
     school: '尚硅谷',
-    subject: '前端'
+    subject: '前端',
+    persons: [
+        { id: '001', name: '张三' }
+    ]
 }
 // getters——用于将state中的数据进行加工 
 const getters = {
     bigSum(state) {
         return state.sum * 10
+    },
+    personsSum(state) {
+        return state.persons.length
     }
 }
 //创建并暴露store

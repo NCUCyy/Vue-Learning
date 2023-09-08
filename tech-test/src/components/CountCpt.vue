@@ -2,6 +2,7 @@
   <div>
     <h1>当前求和为：{{ sum }}</h1>
     <h3>放大十倍后的和：{{ bigSum }}</h3>
+    <span style="color:red">人数为：{{personsSum}}</span>
     <h3>我在{{ school }}，学习我在{{ subject }}</h3>
       <select v-model.number="n">
         <option value="1">1</option>
@@ -25,11 +26,15 @@ export default {
     }
   },
   computed: {
+    //借助mapState生成计算属性，从state中读取数据。（数组写法）
     ...mapState(['sum', 'school', 'subject']),
-    ...mapGetters(['bigSum'])
+    //借助mapState生成计算属性，从getters中读取数据。（数组写法）
+    ...mapGetters(['bigSum','personsSum'])
   },
   methods: {
+    //借助mapActions生成对应的方法，方法中会调用dispatch去联系actions(对象写法)
     ...mapActions({ incrementOdd: 'addOdd', incrementWait: 'addWait' }),
+    //借助mapMutations生成对应的方法，方法中会调用commit去联系mutations(对象写法)
     ...mapMutations({ increment: 'ADD', decrement: 'REDUCE' })
   },
 }
