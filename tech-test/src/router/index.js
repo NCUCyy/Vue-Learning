@@ -26,7 +26,7 @@ export default new VueRouter({
                     children: [
                         {
                             name: 'detail',
-                            path: 'detail',
+                            path: 'detail/:id/:title', // 使用占位符生声明接收params参数
                             component: DetailCpt
                         }
                     ]
