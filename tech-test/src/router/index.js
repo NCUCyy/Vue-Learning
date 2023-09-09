@@ -25,17 +25,11 @@ const router = new VueRouter({
                     meta: { isAuth: true, title: '新闻' },
                     // ------------------------------------独享路由守卫------------------------------------
                     beforeEnter: (to, from, next) => {
-                        // 只有前往设置了isAuth为true的路由组件才会判断
-                        if (to.meta.isAuth) {
-                            if (localStorage.getItem('school') == 'atguigu') {
-                                // 只有执行了next()，才会往后走
-                                next()
-                            } else {
-                                alert('学校名不对，无权查看！')
-                            }
-                        } else {
+                        if (localStorage.getItem('school') == 'atguigu') {
                             // 只有执行了next()，才会往后走
                             next()
+                        } else {
+                            alert('学校名不对，无权查看！')
                         }
                     }
                 },
