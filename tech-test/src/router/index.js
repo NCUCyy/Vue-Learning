@@ -7,19 +7,23 @@ import NewsCpt from '../pages/NewsCpt'
 import MessageCpt from '../pages/MessageCpt'
 import DetailCpt from '../pages/DetailCpt'
 
-export default new VueRouter({
+// 创建并暴露VueRouter
+const router = new VueRouter({
     routes: [
         // 配置一级路由
         {
+            name: 'home',
             path: '/home',
             component: HomeCpt,
             // 配置二级路由(/home的子路由)
             children: [
                 {
+                    name: 'news',
                     path: 'news',
                     component: NewsCpt
                 },
                 {
+                    name: 'message',
                     path: 'message',
                     component: MessageCpt,
                     // 配置三级路由(/message的子路由)
@@ -28,21 +32,6 @@ export default new VueRouter({
                             name: 'detail',
                             path: 'detail/:id/:title', // 使用占位符生声明接收params参数
                             component: DetailCpt,
-                            // 1）对象形式(一般不用；只能是写死的数据)
-                            // props:{
-                            //     id:'001',
-                            //     title:'message1'
-                            // }
-                            // 2）bool形式(只能出传递params中的参数)
-                            // props: true
-                            // 3）function形式(推荐；$route作为函数参数，返回值决定传递什么参数)
-                            // props($route) {
-                            //     // 由return返回值决定传递什么参数
-                            //     return {
-                            //         id: $route.params.id,
-                            //         title: $route.params.title
-                            //     }
-                            // }
                             // 简化写法（解构赋值）
                             props({ params }) {
                                 return {
@@ -56,8 +45,26 @@ export default new VueRouter({
             ]
         },
         {
+            name: 'about',
             path: '/about',
             component: AboutCpt
         }
     ]
 })
+
+// 全局前置路由守卫————①初始化时被调用；②每一次路由切换之前被调用
+router.beforeEach((to, from, next) => {
+    // 只有前往news和message这两个路由，才会判断
+    if (to.name == 'news' || to.name == 'message') {
+        if (localStorage.getItem('school') == 'atguigu') {
+            // 只有执行了next()，才会往后走
+            next()
+        }else{
+            alert('学校名不对，无权查看！')
+        }
+    }else{
+        // 只有执行了next()，才会往后走
+        next()
+    }
+})
+export default router

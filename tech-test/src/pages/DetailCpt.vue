@@ -11,7 +11,10 @@
 export default {
     name: "DetailCpt",
     // 添加props配置项
-    props: ['id', 'title']
+    props: ['id', 'title'],
+    mounted(){
+        console.log(this.$route)
+    }
 }
 </script>
 

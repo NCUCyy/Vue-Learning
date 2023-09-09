@@ -24,7 +24,8 @@
 
 <script>
 export default {
-    name: "HomeCpt"
+    name: "HomeCpt",
+
 }
 </script>
 
