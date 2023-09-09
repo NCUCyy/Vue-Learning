@@ -5,6 +5,7 @@ import HomeCpt from '../pages/HomeCpt'
 import AboutCpt from '../pages/AboutCpt'
 import NewsCpt from '../pages/NewsCpt'
 import MessageCpt from '../pages/MessageCpt'
+import DetailCpt from '../pages/DetailCpt'
 
 export default new VueRouter({
     routes: [
@@ -20,7 +21,13 @@ export default new VueRouter({
                 },
                 {
                     path: 'message',
-                    component: MessageCpt
+                    component: MessageCpt,
+                    children: [
+                        {
+                            path: 'detail',
+                            component: DetailCpt
+                        }
+                    ]
                 }
             ]
         },
