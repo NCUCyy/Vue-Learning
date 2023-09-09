@@ -22,7 +22,22 @@ const router = new VueRouter({
                     name: 'news',
                     path: 'news',
                     component: NewsCpt,
-                    meta: { isAuth: true, title: '新闻' }
+                    meta: { isAuth: true, title: '新闻' },
+                    // ------------------------------------独享路由守卫------------------------------------
+                    beforeEnter: (to, from, next) => {
+                        // 只有前往设置了isAuth为true的路由组件才会判断
+                        if (to.meta.isAuth) {
+                            if (localStorage.getItem('school') == 'atguigu') {
+                                // 只有执行了next()，才会往后走
+                                next()
+                            } else {
+                                alert('学校名不对，无权查看！')
+                            }
+                        } else {
+                            // 只有执行了next()，才会往后走
+                            next()
+                        }
+                    }
                 },
                 {
                     name: 'message',
@@ -57,24 +72,25 @@ const router = new VueRouter({
     ]
 })
 
-// 全局前置路由守卫————①初始化时被调用；②每一次路由切换之前被调用
-router.beforeEach((to, from, next) => {
-    // 只有前往设置了isAuth为true的路由组件才会判断
-    if (to.meta.isAuth) {
-        if (localStorage.getItem('school') == 'atguigu') {
-            // 只有执行了next()，才会往后走
-            next()
-        } else {
-            alert('学校名不对，无权查看！')
-        }
-    } else {
-        // 只有执行了next()，才会往后走
-        next()
-    }
-})
-// 全局后置路由守卫————①初始化时被调用；②每一次路由切换之后被调用
-router.afterEach((to, from) => {
-    // 修改页面标题
-    document.title = to.meta.title
-})
+// ------------------------------------全局路由守卫------------------------------------
+// // 全局前置路由守卫————①初始化时被调用；②每一次路由切换之前被调用
+// router.beforeEach((to, from, next) => {
+//     // 只有前往设置了isAuth为true的路由组件才会判断
+//     if (to.meta.isAuth) {
+//         if (localStorage.getItem('school') == 'atguigu') {
+//             // 只有执行了next()，才会往后走
+//             next()
+//         } else {
+//             alert('学校名不对，无权查看！')
+//         }
+//     } else {
+//         // 只有执行了next()，才会往后走
+//         next()
+//     }
+// })
+// // 全局后置路由守卫————①初始化时被调用；②每一次路由切换之后被调用
+// router.afterEach((to, from) => {
+//     // 修改页面标题
+//     document.title = to.meta.title
+// })
 export default router
