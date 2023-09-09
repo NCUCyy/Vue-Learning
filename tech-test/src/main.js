@@ -1,15 +1,16 @@
 import Vue from 'vue'
 import App from './App.vue'
+// 引入vue-router插件
+import VueRouter from 'vue-router'
+// 使用vue-router插件
+Vue.use(VueRouter)
+// 引入配置的路由器
+import router from './router'
 
 Vue.config.productionTip = false
-//引入store(index.js默认，可以省略)
-import store from './store/index.js'
+
 
 new Vue({
   render: h => h(App),
-  beforeCreate() {
-    // 设置全局事件总线
-    Vue.prototype.$bus = this
-  },
-  store
+  router
 }).$mount('#app')

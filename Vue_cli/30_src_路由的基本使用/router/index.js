@@ -6,14 +6,14 @@ import Home from '../components/Home'
 
 //创建并暴露一个路由器
 export default new VueRouter({
-	routes:[
+	routes: [
 		{
-			path:'/about',
-			component:About
+			path: '/about',
+			component: About
 		},
 		{
-			path:'/home',
-			component:Home
+			path: '/home',
+			component: Home
 		}
 	]
 })
