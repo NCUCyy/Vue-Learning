@@ -20,12 +20,14 @@ const router = new VueRouter({
                 {
                     name: 'news',
                     path: 'news',
-                    component: NewsCpt
+                    component: NewsCpt,
+                    meta: { isAuth: true }
                 },
                 {
                     name: 'message',
                     path: 'message',
                     component: MessageCpt,
+                    meta: { isAuth: true },
                     // 配置三级路由(/message的子路由)
                     children: [
                         {
@@ -54,15 +56,15 @@ const router = new VueRouter({
 
 // 全局前置路由守卫————①初始化时被调用；②每一次路由切换之前被调用
 router.beforeEach((to, from, next) => {
-    // 只有前往news和message这两个路由，才会判断
-    if (to.name == 'news' || to.name == 'message') {
+    // 只有前往设置了isAuth为true的路由组件才会判断
+    if (to.meta.isAuth) {
         if (localStorage.getItem('school') == 'atguigu') {
             // 只有执行了next()，才会往后走
             next()
-        }else{
+        } else {
             alert('学校名不对，无权查看！')
         }
-    }else{
+    } else {
         // 只有执行了next()，才会往后走
         next()
     }
