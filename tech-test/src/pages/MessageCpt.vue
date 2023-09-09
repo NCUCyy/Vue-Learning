@@ -56,6 +56,9 @@ export default {
                 }
             })
         }
+    },
+    beforeDestroy(){
+        console.log('MessageCpt组件被销毁！')
     }
 }
 </script>

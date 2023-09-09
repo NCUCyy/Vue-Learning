@@ -11,7 +11,14 @@
             </li>
         </ul>
         <!-- 展示二级路由 -->
-        <router-view></router-view>
+        <!-- [单个组件] -->
+        <!-- <keep-alive include="NewsCpt">
+            <router-view></router-view>
+        </keep-alive> -->
+        <!-- [多个组件] -->
+        <keep-alive :include="['NewsCpt']">
+            <router-view></router-view>
+        </keep-alive>
     </div>
 </template>
 
