@@ -22,6 +22,7 @@ export default new VueRouter({
                 {
                     path: 'message',
                     component: MessageCpt,
+                    // 配置三级路由(/message的子路由)
                     children: [
                         {
                             path: 'detail',
