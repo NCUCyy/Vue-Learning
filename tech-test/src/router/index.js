@@ -74,6 +74,7 @@ router.beforeEach((to, from, next) => {
 })
 // 全局后置路由守卫————①初始化时被调用；②每一次路由切换之后被调用
 router.afterEach((to, from) => {
+    // 修改页面标题
     document.title = to.meta.title
 })
 export default router
