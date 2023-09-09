@@ -7,7 +7,7 @@
                 <!-- <router-link :to="`/home/message/detail/${message.id}/${message.title}`">{{ message.title}}</router-link> -->
                 <!-- 2、跳转路由并携带params参数，to的对象写法 -->
                 <router-link :to="{
-                    name:'detail',
+                    name: 'detail',
                     params: {
                         id: message.id,
                         title: message.title
@@ -15,6 +15,8 @@
                 }">
                     {{ message.title }}
                 </router-link>
+                <button @click="pushShow(message)">push查看</button>
+                <button @click="replaceShow(message)">replace查看</button>
             </li>
         </ul>
         <router-view></router-view>
@@ -33,7 +35,28 @@ export default {
 
             ]
         }
-    },
+    }, methods: {
+        // push查看
+        pushShow(message) {
+            this.$router.push({
+                name: 'detail',
+                params: {
+                    id: message.id,
+                    title: message.title
+                }
+            })
+        },
+        // replace查看
+        replaceShow(message) {
+            this.$router.replace({
+                name: 'detail',
+                params: {
+                    id: message.id,
+                    title: message.title
+                }
+            })
+        }
+    }
 }
 </script>
 
