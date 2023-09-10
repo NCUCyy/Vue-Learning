@@ -9,6 +9,8 @@ import DetailCpt from '../pages/DetailCpt'
 
 // 创建并暴露VueRouter
 const router = new VueRouter({
+    // 工作模式为history模式（url中无#）
+    mode: 'history',
     routes: [
         // 配置一级路由
         {
