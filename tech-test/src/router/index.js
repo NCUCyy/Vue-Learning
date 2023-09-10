@@ -23,13 +23,18 @@ const router = new VueRouter({
                     path: 'news',
                     component: NewsCpt,
                     meta: { isAuth: true, title: '新闻' },
-                    // ------------------------------------独享路由守卫------------------------------------
+                    // ------------------------------------2、独享路由守卫------------------------------------
                     beforeEnter: (to, from, next) => {
-                        if (localStorage.getItem('school') == 'atguigu') {
-                            // 只有执行了next()，才会往后走
+                        if (to.meta.isAuth) {
+                            if (localStorage.getItem('school') == 'atguigu') {
+                                // 只有执行了next()，才会往后走
+                                next()
+                            } else {
+                                alert('学校名不对，无权查看！')
+                            }
+                        }
+                        else {
                             next()
-                        } else {
-                            alert('学校名不对，无权查看！')
                         }
                     }
                 },
@@ -66,7 +71,7 @@ const router = new VueRouter({
     ]
 })
 
-// ------------------------------------全局路由守卫------------------------------------
+// ------------------------------------1、全局路由守卫------------------------------------
 // // 全局前置路由守卫————①初始化时被调用；②每一次路由切换之前被调用
 // router.beforeEach((to, from, next) => {
 //     // 只有前往设置了isAuth为true的路由组件才会判断
