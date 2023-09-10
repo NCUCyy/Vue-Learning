@@ -10,6 +10,7 @@
       <el-button type="warning">警告按钮</el-button>
       <el-button type="danger">危险按钮</el-button>
     </el-row>
+    <el-input v-model="input" placeholder="请输入内容"></el-input>
   </div>
 </template>
 
